@@ -15,7 +15,7 @@ public class DBUtils {
 
     private static final String PASSWORD = System.getenv("db-password");
 
-    private static Connection connection;
+    public static Connection connection;
     public static PreparedStatement preparedStatement;
 
     public static void getConnection() {
@@ -46,10 +46,10 @@ public class DBUtils {
         try {
             createStatement(query);
             ResultSet rs = preparedStatement.executeQuery();
-            connection.close();
             while(rs.next()){
                 results.add(rm.mapRow(rs));
             }
+            connection.close();
         }catch (SQLException e) {
             LOGGER.error("The results are not created.");
             throw new RuntimeException(e);
@@ -58,25 +58,5 @@ public class DBUtils {
 
         return results;
     }
-
-    public static ResultSet getResultset(String query){
-        createStatement(query);
-        ResultSet rs;
-        try {
-             rs = preparedStatement.executeQuery();
-            connection.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return rs;
-    }
-
-
-
-
-
-
-
-
 
 }
