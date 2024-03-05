@@ -1,18 +1,19 @@
 package mapper;
 
-
-import model.Rental;
+import model.Payment;
 import utils.RowMapper;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.Map;
 
-public class
+public class PaymentMapper implements RowMapper<Payment> {
 
-RentalMapper implements RowMapper<Rental> {
-    public Rental mapRow(ResultSet rs) throws SQLException {
-        return new Rental(createMap(rs));
+
+    public Payment mapRow(ResultSet rs) throws SQLException {
+        return new Payment(createMap(rs));
     }
+
 
     public Map<String, Object> createMap(ResultSet rs) throws SQLException {
         return RowMapper.getStringObjectMap(rs);

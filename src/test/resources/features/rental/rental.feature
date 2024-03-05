@@ -4,7 +4,7 @@ Feature: Rental records retrieval
   Background:
     Given The database is accessible
 
-  Scenario: Validate that rental records retrieval is successfull
+  Scenario: Validate that rental records retrieval is successful
     When I request the rental records
     Then Validate that the size of rental records is 16044
 

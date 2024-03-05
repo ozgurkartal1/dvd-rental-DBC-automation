@@ -4,7 +4,7 @@ Feature: Film records retrieval
   Background:
     Given The database is accessible
 
-  Scenario: Validate that film records retrieval is successfull
+  Scenario: Validate that film records retrieval is successful
     When I request the film records
     Then Validate that the size of film records is 1000
 
