@@ -1,5 +1,6 @@
 package utils;
 
+import model.FilmDetails;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -12,7 +13,6 @@ public class DBUtils {
 
     private static final String URL = ConfigManager.getProperty("db_URL");
     private static final String USERNAME = ConfigManager.getProperty("db_Username");
-
     private static final String PASSWORD = System.getenv("db-password");
 
     public static Connection connection;
@@ -21,7 +21,7 @@ public class DBUtils {
     public static void getConnection() {
         try {
             LOGGER.info("Try to get connection ");
-            connection = DriverManager.getConnection(URL,USERNAME,PASSWORD);
+            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 
         } catch (SQLException e) {
             LOGGER.error("Connection is failed.");
@@ -29,11 +29,11 @@ public class DBUtils {
         }
     }
 
-    public static void createStatement(String query){
+    public static void createStatement(String query) {
         try {
             LOGGER.info("Try to create statement.");
             getConnection();
-           preparedStatement = connection.prepareStatement(query);
+            preparedStatement = connection.prepareStatement(query);
 
         } catch (SQLException e) {
             LOGGER.error("Creating statement process is failed.");
@@ -41,16 +41,17 @@ public class DBUtils {
         }
     }
 
-    public static <T> List<T> executeQuery(String query , RowMapper<T> rm){
+    public static <T> List<T> executeQuery(String query, RowMapper<T> rm) {
         List<T> results = new ArrayList<>();
         try {
             createStatement(query);
             ResultSet rs = preparedStatement.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
+                T T = rm.mapRow(rs);
                 results.add(rm.mapRow(rs));
             }
             connection.close();
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             LOGGER.error("The results are not created.");
             throw new RuntimeException(e);
         }

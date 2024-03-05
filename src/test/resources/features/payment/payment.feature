@@ -1,4 +1,4 @@
-@film @smoke @regression
+@payment @smoke @regression
 Feature: Payment records retrieval
 
   Background:
